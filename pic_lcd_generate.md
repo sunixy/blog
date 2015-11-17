@@ -1,9 +1,9 @@
-#PIC单片机驱动LCD断码屏代码生成工具
+# PIC单片机驱动LCD断码屏代码生成工具
 PIC 16系列单片机部分型号都带有LCD（断码）驱动模块，
 在编写这部分代码的过程中发现对驱动管脚赋值逻辑有很大的重复部分。
 所以写了一个宏函数，自动生成驱动逻辑。
 
-##断码屏与驱动管脚对应关系
+## 断码屏与驱动管脚对应关系
 断码屏的一位一般由8段构成：A,B,C,D,E,F,G,DP。
 
 构成对应图形：
@@ -21,7 +21,7 @@ PIC 16系列单片机部分型号都带有LCD（断码）驱动模块，
 每段对应PIC单片机的一个驱动管脚。而这个管脚由PIC单片机LCD驱动模块的LCDDATAX寄存器
 控制。通过PIC的寄存器映射头文件可以表示为COMxSEGy。
 
-##头文件进行管脚配置
+## 头文件进行管脚配置
 首先定义每一位的各个段：
 
 ```cpp
@@ -50,7 +50,7 @@ LCD_G1 = 0;
 #define LCD_DIGIT_1     (LCD_SEG_B|LCD_SEG_C)
 ```
 
-##函数自动生成
+## 函数自动生成
 之后对断码屏的每一位显示来说，就是对相应管脚的0,1赋值。利用定义好的
 命名规则可以利用宏函数来自动生成对应的显示函数。
 
@@ -105,7 +105,7 @@ void lcd_##page##_display_value(unsigned char column, unsigned char character) \
 /*void lcd_page1_display_value(unsigned char column, unsigned char character)*/
 generate_page1_lcd_display_value()
 ```
-##结束
+## 结束
 生成显示函数以后可以像如下调用：
 ```cpp
 lcd_page1_display_value(LCD_COLUMN_1, LCD_DIGIT_0);
